@@ -27,21 +27,6 @@ def getClassName(str):
       raise Exception('Cannot find class name from input['+str+']')
    return None
 
-def getAmendHistoryIndexLineno(filename):
-   f=open(filename,'r')
-   lines=f.readlines()
-   f.close()
-   for index, line in enumerate(lines):
-      if "*/" in line:
-         return index+1
-   return -1
-
-def getAmendHistoryIndexLineno2(fileinput):
-   for line in fileinput:
-      if "*/" in line:
-         return fileinput.filelineno()+1
-   return -1
-
 def processAddlog(searchPattern):
     processing_addlog=False
     for line in fileinput.input(glob.glob(searchPattern),inplace=1):
@@ -55,7 +40,6 @@ def processAddlog(searchPattern):
     			processing_addlog=False
         sys.stdout.write(line)
     fileinput.close()
-
 
 
 def processingRemoveMglog(searchPattern):
@@ -80,17 +64,6 @@ def processingReplaceMglogSlf4j(searchPattern):
             continue
         sys.stdout.write(line)
     fileinput.close()
-
-# def processingAddAmendHistory(searchPattern):
-#     amendhistoryLineno = -1
-#     for line in fileinput.input(glob.glob(searchPattern),inplace=1):
-#         if fileinput.isfirstline():
-#             amendhistoryLineno = \
-#                 getAmendHistoryIndexLineno(fileinput.filename())
-#         if amendhistoryLineno == fileinput.filelineno():
-#             sys.stdout.write(addamendhistory.substitute())
-#         sys.stdout.write(line)
-#     fileinput.close()
 
 def processingAddAmendHistory(searchPattern):
     input=FileInput(files=tuple(glob.glob(searchPattern)),inplace=1)
