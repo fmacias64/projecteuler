@@ -1,0 +1,38 @@
+Note of Computational Investing
+
+Week 1
+
+Annual Return
+Daily Return
+stdev of daily returns
+Draw down
+Sharpe raito
+sortino raito(only measure the downward)
+jensen's alpha
+
+Max draw down
+
+how to compare similar portfolios?
+daily_rets[i]=(value[i]/value[i-1])-1
+stdev_metric=stdev(daliy_rets)
+
+Sharpe Ratio
+>Most 'important' measure of asset performance
+>How well does the return of an asset compensate the investor for the risk taken
+>The higher the Sharpe ratio the better
+>When comparing two assets each with the same return, higher Sharpe ratio gives more return for the same risk
+
+>Reward/Risk=How much reward are you getting for your risk?
+>metric=k * ( mean(daily_rets)/stdev(daily_rets) )
+>k=sqrt(250) for daily returns
+note:the 250 here stand for days in trading of the year
+
+Homework and Demo with Excel
+>Yahoo Finance -> any equity -> historial prices
+save as csv
+Adj Close
+
+Homework1
+paper trade 1M in 4 equities
+assess profolio
+compare with the benchmark like SYP
