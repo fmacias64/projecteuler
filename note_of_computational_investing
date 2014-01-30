@@ -164,6 +164,58 @@ How does the market know?
 value=#shares outstanding * price
 
 /*------------------------------
-* Overview and Installation of QSTK
+* Overview and Installation of QSTK and Test Data
 *------------------------------*/
 wiki.quantsoftware.org
+
+/*------------------------------
+* Capital Assets Pricing Model
+*------------------------------*/
+Live Market Example
+
+CAPM:
+>introduced by Jack Treynor,William Sharpe,John Lintner and Jan Mossin(1966)
+>Sharpe,Markowitz and Merton Miller jointly received the Nobel Price
+
+CAPM:Assumptions
+>Return on stock has two components:
+->Systematic(the market)
+->Residual
+>Expected value of residual=0
+>Market return:
+->Risk free rate of return +
+->Excess return
+
+The Market Portfolio
+>Usually broad market-cap weighted index
+US:S&P 500
+UK:FTA
+Japan:TOPIX
+>Remember our company that printed $1 bill?
+>Island analogy
+
+CAPM:Definition of Beta
+>Assume: r(of i)(t)=beta(of i) * r(of m)(t)+alpha(of i)
+>Use linear regression(line fitting) to find beta and alpha
+
+Beta & Correlation with the Market
+
+Beta & Correlation are Different!
+
+CAPM:Expected Residual=0
+>CAPM:
+->r(of i)(t)=beta(of i) * r(of m)(t)+alpha(of i)
+->r(of i)(t)=beta(of i) * r(of m)(t)+random
+>Active Portfolio Management View
+r(of i)(t)=beta(of i) * r(of m)(t)+alpha(of i)
+
+CAPM:Implications
+>Expected excess returns are proportional to beta
+>Beta of a portfolio = weighted sum of betas of components
+
+Portfolio Beta Example
+
+CAPM Market Risk: Example
+
+CAPM Market Risk: Long & Short
+removing market risk
