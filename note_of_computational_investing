@@ -219,3 +219,255 @@ CAPM Market Risk: Example
 
 CAPM Market Risk: Long & Short
 removing market risk
+
+/*------------------------------
+* Event Studies & Efficient Market Hypothesis
+*------------------------------*/
+Learn the most common sources of information that may affect equity prices
+Learn how information relates to company value
+Understand the 3 versions of the Efficient Market Hypothesis
+Understand how Event Studies work
+
+Two General Approaches to Determining Value
+>Technical Analysis
+price and volume only
+>Fundamental Analysis
+financial statements
+P/E ratios, cash on hand, dividends
+
+Where does information come from
+>Price/Volume: the markets
+>Fundamentals: SEC filings
+>News: Exogenous sources
+
+Efficient Market Hypothesis: 3 version
+>Weak:prices reflect all past publicly available information
+->prohibits profit from Technical Analysis
+>Semi-Strong:Weak + prices instantly change to reflect new public information
+->Prohibits profit from T.A. & Fundamental Analysis
+>Strong:Semi-Strong + prices instantly reflect even hidden or 'insider' information
+->Prohibits profit from insider informationp
+
+en.wikipedia.org/wiki/Efficient-market_hypothesis
+
+Is the EMH True?
+
+Behavioral Economics: Argues Against EMH
+Cognitive biases such as
+>overconfidence,
+>overreaction,
+>information bias.
+
+How to assess information's affect?
+Event studies in economics and finance
+AC Mackinlay - Journal of economic literature, 1997 - JSTOR
+
+Event Studies in Detail
+
+/*------------------------------
+* Portfolio Optimization and the Efficient Frontier
+*------------------------------*/
+>understand 'risk'
+>understand correlation and covariance
+>understand mean variance optimization
+>understand the efficient frontier
+
+What is portfolio optimization?
+Given:
+->A set of equities, and
+->Target return
+Find:
+->Allocation to each equity that minimizes risk
+
+How can we do it better?
+Harry Marikowitz, Nobel Prize 1990
+
+Portfolio Optimization
+Inputs:
+>Expected return for each Equity
+>Volatility(risk) for each equity
+>Target return
+>Covariance matrix
+Output:
+>Portfolio weights that minimize risk for target return
+
+Correlation and Covariance Between Equities
+How can we have portfolio with lower risk than individual equities?
+Why Covariance Matters
+
+The Efficient Frontier
+lower risk by combining anti-correlated equities
+How to combine them?
+
+How Optimizers Work
+General Idea
+>Define variables
+->Equity weights
+>Define constraints
+->Minimum or Maximum weights
+>Define optimization criteria
+->Function of weights
+>Optimizer algorithm:
+->Tweak weights
+->Check constraints
+->OK?
+->Call function
+->Repeat
+
+Convex Optimization
+>QSTK uses CVXOPT
+>abel.ee.ucla.edu/cvxopt
+>thanks UCLA
+
+Further Reading
+>wiki Convex_function, Convex_optimization
+
+/*------------------------------
+* Digging into data($5 studies, Survivor Bias)
+*------------------------------*/
+>understand how to read an event study
+>review 'correct' answers for $5 events
+>understand problems with survivor biased data
+>understand Actual versus Adjusted historical price data
+>understand some methods of data sanity checking and scrubbing
+
+Example Event
+>Based on Bollinger Bands(haven't covered yet)
+>Price drops below -1.5 standard deviations of recent daily values
+>SPY(S&P 500) is above 0.25
+
+Digging into data(Actual vs Adjusted Prices)
+Actual versus Adjusted
+>Actual: The actual closing price recorded by the exchange on the specific date in history
+>Adjusted: A revised price that automatically accounts for 'how much you would have made if you held the stock'
+Adjusting for splits
+Dividends: AGNC Example
+Dividends: Actual vs Adjusted
+
+Gaps in Data(NaN)
+>Breaks in trading
+>Before stocks exist
+>After stocks exist
+
+Fill Forward or Fill Back?
+normally always fill forward to avoid peak
+
+Digging into data(Sanity and Scrubbing)
+Examples of Bad Data
+>Failure to adjust for splits
+>Orders of magnitude drops, followed by offsetting orders of magnitude climbs
+>Database updates missing significant chunks of data/symbols
+
+Why bad data is bad
+>Automated strategies may exploit bad data, then fail with real data
+>You might think you've 'discovered' something
+
+Sanity Checks
+>scan new data for ~50% drops or 200% gains(probably a split). very rare for real data
+>NaNs in DOW stocks(Probably data feed bad)
+>recent adjusted prices less than 0.01
+>NaNs > 20 trading days?
+
+Scrubbing
+>remove or repair?(Easier, more reliable to remove)
+>can only repair if you have multiple sources
+
+/*------------------------------
+* Analyzing an Event Study
+*------------------------------*/
+How to Assess Event Study
+>how to use these tools togerther
+event study allows you to test hypotheses:
+->what if market Bollinger value is high, but
+->stock Bollinger value is low?
+->buy signal?
+
+>simulator lets you operationalize
+transition from hypothesis to strategy:
+->buy/sell?
+->how long to hold?
+->how much to allocate to each bet?
+
+>how to read an event study
+
+first, sanity check
+second, assess:buy or sell? hold time?
+risk? how many opportunities?
+
+/*------------------------------
+* The Fundamental Law and Coin Flipping
+*------------------------------*/
+Motivating Quote
+"Wide diversification is only required when investors do not understand what they are doing"--Warren Buffet
+
+A Thought Experiment
+>stock trade=bet
+>coin filp=bet
+
+>uncertainty=beta
+>coin bias=alpha(51% heads)
+
+Conditions of One Bet
+>we bet one token
+>win: now own two tokens
+>lose: now own zero tokens
+
+what if we make multiple bets in parallel?
+>case 1: one bet with $1000 token
+>case 2: 1000 bets with $1 tokens
+which is better?
+
+consider reward/risk
+>reward=expected return
+>single bet case: 0.51*1000+0.49*-1000=$20
+>multi bet case: 1000*(0.51*1 + 0.49*-1)=$20
+
+>risk measure 1: possibility to lose everything
+>single bet case: 49%
+>multi bet case: 0.49*0.49*0.49...*0.49=0.49^1000(small!)
+
+>risk measure 2: standard deviation
+>multi bet case: stdev(1,-1,1,-1,1,1,...,-1)=$1.00
+>single bet case: stdev(1000,0,0,0,0,...,0)=$31.62
+
+Observe
+>SR(multi)=SR(single)*SQRT(1000)
+20=0.63*SQRT(1000)=0.63*31.62=20
+More generally:
+>SR(multi)=C * alpha * SQRT(bets)
+
+>Same expected return, but
+>Multi bet case:
+much lower risk to lose everything
+much lower standard deviation
+much higher reward/risk ratio
+
+>higher alpha=higher sharpe ratio
+>more bets=higher sharpe ratio
+>sharpe ratio grows as the SQRT of brea
+
+Balch's blog:
+augmentedtrade.wordpress.com
+
+Observation
+>Jim Simons(rentec) and Warren Buffet(BRK) offer about the same performance
+>Buffet's portfolio contains few equities:54% in just 3 stocks(2010)
+>Simons trades actively(100Ks/day?)
+
+Information Ratio(IR)
+
+Information Coefficient(IC,Skill)
+>IC
+>Correlation of forecast to actual return
+>Remember biased coin?
+
+Breadth(BR)
+>BR
+>Number of opportunities to execute
+>Number of coin flip bets
+
+IR=IC * sqrt(BR)
+preformance = skill * opportunity
+
+Another Quote
+"we believe that according the name 'investors' to institutions that trade actively is like calling someone who repeatedly engages in one-night stands a 'romantic'"
